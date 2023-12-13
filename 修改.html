@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    .transition-container {
+      position: relative;
+      width: 771px;
+      height: 588px;
+      overflow: hidden;
+    }
+
+    #background-image {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      transition: transform 1s ease-in-out;
+    }
+
+    .content {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      transition: transform 1s ease-in-out;
+    }
+
+    #role {
+      width: 230px;
+      height: 230px;
+      margin: auto;
+      position: absolute;
+      top: 35%;
+      left: 10%;
+      z-index: 2;
+    }
+
+    #dialog {
+      width: 400px;
+      height: 200px;
+      margin: auto;
+      position: absolute;
+      top: 63%;
+      left: 10%;
+      z-index: 1;
+    }
+
+    #dialog p {
+      position: absolute;
+      top: 28px;
+      left: 22px;
+      color: white;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="transition-container">
+    <img id="background-image" src="工藤宅.jpg" alt="背景图">
+    <div id="dialog" onclick="nextSentence()">
+      <img src="對話框.png" alt="對話框">
+      <p id="sentence">點擊對話框開始對話：</p>
+    </div>
+    <img id="role" src="滾筒洗衣機.png" alt="Role" >
+  </div>
+  <script>
+
+  var sentences = [
+  "大家好，我是高中生蒸蛋滾筒洗衣機",
+  "某天和青梅竹馬兼同學的角蘭受邀參加一場晚宴",
+  "沒想到，卻發生了離奇的殺人事件!",
+  "事情要從那時說起------",
+  "這是一個下著大雨的夜晚，一台白色的豐田在蜿蜒的山路上呼嘯而過。",
+  "誒，爸爸，那邊好像有個人誒!",
+  "(一個身型高大的男人撐著一把漆黑的傘站在雨中。)",
+  "（將車緩緩停下，拉下車窗，看清楚陌生人的面貌後一震驚）",
+  "這不是貓哥嗎？你怎麼會在這裡？",
+  "（是鄰居先生？他怎麼會出現在這裡？）",
+  "啊，原來是小五狼先生啊。說來慚愧，原本是想上山來採風的，沒想到車子居然在半路拋錨了。",
+  "剛剛打電話給維修隊，但今日的天氣狀況實在是不佳，恐怕是得等到明日才能來處理。若是諸位方便的話，不知能否載我一程？",
+  "啊這…我們今天來是要前往山上的別墅參加一場晚宴的。算了！總之你先上車再說吧！",
+  "喔？邀請函？",
+  "是的，某天我放學回家後，便在桌上發現了這個。（拿出一個黑色信封）",
+  "（接過信封，拆開）",
+  " 在下仰慕閣下的睿智，特地去函邀請閣下到府晚餐小酌……最後附上了黃昏別館的地址。",
+  " 落款，怪盜基德？",
+  "沒錯，在我家的書房桌上也莫名其妙的出現了這個信封。",
+  "因為想弄清楚怪盜基德到底在搞什麼鬼，剛好聽說小五狼叔叔也接到了邀請，乾脆就一起來了。",
+  "原來是這樣啊，我了解了。",
+  "這麼說起來，前面這棟別墅就是傳說中的黃昏別館吧？",
+  "（四人推門進屋）",
+  "誒？腹部！？",
+  "hi~滾筒，原來你也被邀請了啊。",
+  "喔，什麼嘛。原來是關西的偵探小子啊。",
+  "好久不見了啊毛利大叔，他把你也請來了啊。",
+  "（此時另一個人走了過來）",
+  "喔呀！這不是大名鼎鼎的毛利小五狼先生嗎？沒想到能在這裡看到您！",
+  "請問你是……？",
+  "在下大上助善。",
+  "喔……！是那位美食家偵探大上助善吧！久仰了。",
+  "哪裡哪裡，還請您多多指教才是",
+  "歡迎大家大駕光臨 抱歉耽擱大家那麼久。",
+"你的主人是什麼意思，把我們找來一定有事吧？",
+"你的主人在哪裡啊？",
+"這……就連我來到現在也沒見過他。",
+"那你怎麼在這工作的？",
+"我是接受了面試之後錄取的，但……那場面試實在是太詭異了。",
+"詭異？",
+"因為這工作待遇非常不錯，所以當初來應試的人非常踴躍。",
+"但當我走進面試房間時，桌上只有一台電腦，一份餐會說明書和賓客名單。",
+"無奈之餘，我只好閱讀完那些文件，這時候電腦出現了“你被錄取”這四個字。",
+"那你是怎麼和主人保持聯絡的？",
+"細節部分我和主人都是透過gmail或line聯繫的。",
+"(挑眉)哼哼，這聽起來真有趣。",
+"是啊，尤其是看到那門上詭異的把手時就燃起我的興趣了。",
+"（湊近一看）咦！好像真的有點奇怪……",
+"我想那恐怕是有點歷史的血跡了。",
+"（嚇得後退幾步）你是開玩笑的吧？",
+"（一個人緩緩走下樓梯）",
+"很抱歉，他說的恐怕是真的。",
+"暗示先生！？",
+"你這小子怎麼會在這裡？",
+"啊…關於這件事情嘛……",
+"我昨日接到一個匿名的委託，去到約定的地點後卻沒有見到委託人，只在地上找到了這個。（兩指夾著邀請函晃了晃）",
+"沒想到我也有這個榮幸收到邀請，這一定是多虧了我身為毛利老師的弟子這個身份。真不愧是毛利老師！",
+"哎呀！我果然很厲害！（摸了摸頭）",
+"那麼，你方才說的話是什麼意思？",
+"請看。(拿出一個裝著神秘液體的瓶子噴在樓梯把手上)",
+"那是什麼？",
+"魯米諾試劑，一種噴射在血跡上，會產生特殊青紫色螢光的試劑。",
+"根據我的分析，這是以45度的入射角沾附在門上的飛沫血跡。",
+"除了門上有血跡，這裡四處都沾附著血跡，看來這些血跡的主人……絕不是一兩人那麼簡單。",
+"（樓梯角落出現了另一個人）",
+"(輕輕鼓掌)分析得太好了!",
+"誒！？",
+"我的名字是白馬王子探，請多指教。",
+"過去都只能在傳聞中聽聞這麼多年來經人刻意掩飾的悲劇現場，今天能親自到現場真是我的榮幸。",
+"真是不枉費我特意從英國飛回來，（自信一笑）看來40年前的秘密即將要揭開了。",
+"（一臉疑惑）",
+"悲劇？",
+"看來這棟別墅還發生過什麼有趣的故事啊。（眼鏡閃過一道光）",
+"據說40年前這座別館曾召集了政經界的名流在此開秘密會議，表面上是為了追思以99歲辭世的酒廠老闆，實際上則是針對酒廠老闆生前收藏美術品的拍賣會。",
+"拍賣會進行到一半時，來了兩個男人，他們聲稱自己因為暴風雨迷失了方向，希望主辦人收留他們。",
+"原本主辦人拒絕了他們，但那兩個男人從口袋中拿出了一個類似香菸的東西，主辦人吸了幾口之後，不知為何的改變了心意，館中其他賓客也接受了他們的蠱惑，整個館中瀰漫著菸味。",
+"那個菸該不會是……",
+"大麻？",
+"沒錯（彈指），於是過了不久大家便像發了瘋似的互相搶奪美術品，甚至拿了拍賣品中的名刀互相砍殺了起來，在混亂之後，那兩名男人拿著所有的拍賣品人間蒸發了。",
+"奇怪了 這麼大的案件為什麼沒有新聞報導？",
+"大概是因為那些賓客都是政經名流吧。與其讓大家知道他們被兩個來歷不明的人耍了，不如把整件事壓下來，才能保住他們的社會地位。",
+"啊，原來如此，不過，這些陳年往事，還真能促進我們的食慾呢。（挑了挑嘴角）",
+"說到這個，差不多到飯點了吧？",
+"是的，餐點已經準備好了，請諸位跟我來。",
+"這裡就是餐廳，各位請進。",
+"(一名全身被黑色斗篷遮住的男人坐在正前方的座位上。)",
+"拜託，你這打扮是什麼意思啊。（白眼）",
+"本人誠摯的歡迎在場的各位光臨這座黃昏別館，請諸位先按照座位入座吧。",
+"我可不敢按照這個藏頭露尾的主人的安排入座啊。",
+"說不定，其中哪個位子的餐具就被下毒了呢。（輕笑）",
+"那麼，我倒是有個好主意，抽撲克牌怎麼樣？（從口袋拿出撲克牌）",
+"（喂喂，也太誇張了吧？你的口袋是百寶袋嗎？）",
+"（聳了聳肩）我沒意見。",
+"我也沒有。",
+"那就這麼辦吧。",
+"大家都聽說了40年前的悲劇了吧？不過，這座別墅內其實還藏著當年那兩名小偷沒有帶走的巨額寶藏，而今天邀請諸位前來的目的，就是希望你們能幫我找出這個寶藏。",
+"我在因緣際會之下得到了寶藏的線索，（講謎語）。",
+"不過，你們之中只能有一個人來向我提交答案。我很期待看到你們重新上演一遍40年前那場慘絕人寰的悲劇，我會好好欣賞你們為了寶物互相殘殺的醜態。",
+"哼！真是無聊至極。",
+"要我們自相殘殺，你想的美。",
+"（冷笑）你們沒有人能退出這場遊戲，你們的車和唯一能離開這裡的橋都被我炸毀了。",
+"第一個找到寶藏的人，我不但把半數的寶藏分給他，還會放他走。",
+"（突然站起）",
+"（呻吟）啊……（痛苦的捂住喉嚨）",
+"啊！！！（驚訝）",
+"喂！沒事吧！",
+"（倒下）",
+"（上前確認）他沒有心跳了。",
+"什麼！？",
+"照他這個情況，想要復原是不可能的了。（皺眉）",
+"（觀察）他的嘴唇目前並沒有發現任何發青或是發紫的現象。",
+"（用手扇聞）但他身上卻有一股淡淡的杏仁味。",
+"難道是他剛剛喝的紅茶有氰化物？",
+"（拿起硬幣測試）他的紅茶沒有氧化還原反應，我想他的死因應該跟紅茶沒有關聯才對。",
+"你少裝神弄鬼了！（掀起黑衣人的斗篷）",
+"（斗篷下是一個安裝了喇叭的假人。）",
+"可惡！這傢伙根本就在耍我們。",
+"好了，這場遊戲已經正式展開，各位可以開始行動了。",
+];
+
+  var currentIndex = -1;
+  var sentenceElement = document.getElementById('sentence');
+  var backgroundImageElement = document.getElementById('background-image');
+  var roleImageElement = document.getElementById('role');
+/*
+A:洗
+B:角
+C:狼
+D:貓
+E:腹
+F:暗
+G:白馬
+H:大上
+I:僕
+J:神秘人
+K:無
+*/
+function A(){
+    roleImageElement.src = '滾筒洗衣機.png';
+    roleImageElement.style.width = '230px';
+    roleImageElement.style.height = '230px';
+}
+function B(){
+    roleImageElement.src = '角蘭.png';
+    roleImageElement.style.width = '220px';
+    roleImageElement.style.height = '211px';
+}
+function C(){
+    roleImageElement.src = '毛利小五狼.png';
+    roleImageElement.style.width = '215px';
+    roleImageElement.style.height = '210px';
+}
+function D(){
+    roleImageElement.src = '貓哥.png';
+    roleImageElement.style.width = '190px';
+    roleImageElement.style.height = '200px';
+}
+function E(){
+    roleImageElement.src = '腹部平刺.png';
+    roleImageElement.style.width = '190px';
+    roleImageElement.style.height = '200px';
+}
+function F(){
+    roleImageElement.src = '暗示透.png';
+    roleImageElement.style.width = '190px';
+    roleImageElement.style.height = '200px';
+}
+function G(){
+    roleImageElement.src = '白馬王子探.png';
+    roleImageElement.style.width = '200px';
+    roleImageElement.style.height = '200px';
+}
+function H(){
+    roleImageElement.src = '大上助善.png';
+    roleImageElement.style.width = '210px';
+    roleImageElement.style.height = '210px';
+}
+function I(){
+    roleImageElement.src = '女僕1.png';
+    roleImageElement.style.width = '190px';
+    roleImageElement.style.height = '200px';
+}
+function J(){
+    
+}
+function K(){
+    roleImageElement.src = '無.jpg';
+    roleImageElement.style.width = '1px';
+    roleImageElement.style.height = '1px';
+}
+
+
+  function nextSentence() {
+  if (currentIndex < sentences.length - 1) {
+    currentIndex++;
+    sentenceElement.innerText = sentences[currentIndex];
+    if (sentences[currentIndex] == "誒，爸爸，那邊好像有個人誒!") {
+        B();
+    }
+    if (sentences[currentIndex] == "(一個身型高大的男人撐著一把漆黑的傘站在雨中。)") {
+        K();
+    }
+    if (sentences[currentIndex] == "（將車緩緩停下，拉下車窗，看清楚陌生人的面貌後一震驚）") {
+        C();
+    }
+    if (sentences[currentIndex] == "（是鄰居先生？他怎麼會出現在這裡？）") {
+        A();
+    }
+    if (sentences[currentIndex] == "啊，原來是小五狼先生啊。說來慚愧，原本是想上山來採風的，沒想到車子居然在半路拋錨了。") {
+        D();
+    }
+    if (sentences[currentIndex] == "啊這…我們今天來是要前往山上的別墅參加一場晚宴的。算了！總之你先上車再說吧！") {
+        C();
+    }
+    if (sentences[currentIndex] == "喔？邀請函？") {
+        D();
+    }
+    if (sentences[currentIndex] == "是的，某天我放學回家後，便在桌上發現了這個。（拿出一個黑色信封）") {
+        B();
+    }
+    if (sentences[currentIndex] == "（接過信封，拆開）") {
+        D();
+    }
+    if (sentences[currentIndex] == "沒錯，在我家的書房桌上也莫名其妙的出現了這個信封。") {
+        A();
+    }
+    if (sentences[currentIndex] == "原來是這樣啊，我了解了。") {
+        D();
+    }
+    if (sentences[currentIndex] == "（四人推門進屋）") {
+        K();
+    }
+    if (sentences[currentIndex] == "誒？腹部！？") {
+        A();
+    }
+    if (sentences[currentIndex] == "hi~滾筒，原來你也被邀請了啊。") {
+        E();
+    }
+    if (sentences[currentIndex] == "喔，什麼嘛。原來是關西的偵探小子啊。") {
+        C();
+    }
+    if (sentences[currentIndex] == "好久不見了啊毛利大叔，他把你也請來了啊。") {
+        E();
+    }
+    if (sentences[currentIndex] == "（此時另一個人走了過來）") {
+        K();
+    }
+    if (sentences[currentIndex] == "喔呀！這不是大名鼎鼎的毛利小五狼先生嗎？沒想到能在這裡看到您！") {
+        H();
+    }
+    if (sentences[currentIndex] == "請問你是……？") {
+        C();
+    }
+    if (sentences[currentIndex] == "在下大上助善。") {
+        H();
+    }
+    if (sentences[currentIndex] == "喔……！是那位美食家偵探大上助善吧！久仰了。") {
+        C();
+    }
+    if (sentences[currentIndex] == "哪裡哪裡，還請您多多指教才是") {
+        H();
+    } 
+    if (sentences[currentIndex] == "歡迎大家大駕光臨 抱歉耽擱大家那麼久。") {
+        I();
+    }
+    if (sentences[currentIndex] == "你的主人是什麼意思，把我們找來一定有事吧？") {
+        A();
+    }
+    if (sentences[currentIndex] == "你的主人在哪裡啊？") {
+        E();
+    }
+    if (sentences[currentIndex] == "這……就連我來到現在也沒見過他。") {
+        I();
+    }
+    if (sentences[currentIndex] == "那你怎麼在這工作的？") {
+        C();
+    }
+    if (sentences[currentIndex] == "我是接受了面試之後錄取的，但……那場面試實在是太詭異了。") {
+        I();
+    }
+    if (sentences[currentIndex] == "詭異？") {
+        C();
+    }
+    if (sentences[currentIndex] == "因為這工作待遇非常不錯，所以當初來應試的人非常踴躍。") {
+        I();
+    }
+    if (sentences[currentIndex] == "那你是怎麼和主人保持聯絡的？") {
+        B();
+    }
+    if (sentences[currentIndex] == "細節部分我和主人都是透過gmail或line聯繫的。") {
+        I();
+    }
+    if (sentences[currentIndex] == "(挑眉)哼哼，這聽起來真有趣。") {
+        A();
+    }
+    if (sentences[currentIndex] == "是啊，尤其是看到那門上詭異的把手時就燃起我的興趣了。") {
+        E();
+    }
+    if (sentences[currentIndex] == "（湊近一看）咦！好像真的有點奇怪……") {
+        B();
+    }
+    if (sentences[currentIndex] == "我想那恐怕是有點歷史的血跡了。") {
+        E();
+    }
+    if (sentences[currentIndex] == "（嚇得後退幾步）你是開玩笑的吧？") {
+        B();
+    }
+    if (sentences[currentIndex] == "（一個人緩緩走下樓梯）") {
+        K();
+    }
+    if (sentences[currentIndex] == "很抱歉，他說的恐怕是真的。") {
+       F();
+    }
+    if (sentences[currentIndex] == "暗示先生！？") {
+        A();
+    }
+    if (sentences[currentIndex] == "你這小子怎麼會在這裡？") {
+        C();
+    }
+    if (sentences[currentIndex] == "啊…關於這件事情嘛……") {
+        F();
+    }
+    if (sentences[currentIndex] == "哎呀！我果然很厲害！（摸了摸頭）") {
+        C();
+    }
+    if (sentences[currentIndex] == "那麼，你方才說的話是什麼意思？") {
+        B();
+    }
+    if (sentences[currentIndex] == "請看。(拿出一個裝著神秘液體的瓶子噴在樓梯把手上)") {
+        F();
+    } 
+     if (sentences[currentIndex] == "那是什麼？") {
+        B();
+    }
+    if (sentences[currentIndex] == "魯米諾試劑，一種噴射在血跡上，會產生特殊青紫色螢光的試劑。") {
+        A();
+    }
+    if (sentences[currentIndex] == "根據我的分析，這是以45度的入射角沾附在門上的飛沫血跡。") {
+        F();
+    }
+    if (sentences[currentIndex] == "（樓梯角落出現了另一個人）") {
+        K();
+    }
+    if (sentences[currentIndex] == "(輕輕鼓掌)分析得太好了!") {
+        G();
+    }
+    if (sentences[currentIndex] == "誒！？") {
+        B();
+    }
+    if (sentences[currentIndex] == "我的名字是白馬王子探，請多指教。") {
+        G();
+    }
+    if (sentences[currentIndex] == "（一臉疑惑）") {
+        B();
+    }
+    if (sentences[currentIndex] == "悲劇？") {
+        A();
+    }
+    if (sentences[currentIndex] == "看來這棟別墅還發生過什麼有趣的故事啊。（眼鏡閃過一道光）") {
+        D();
+    }
+    if (sentences[currentIndex] == "據說40年前這座別館曾召集了政經界的名流在此開秘密會議，表面上是為了追思以99歲辭世的酒廠老闆，實際上則是針對酒廠老闆生前收藏美術品的拍賣會。") {
+        G();
+    }
+    if (sentences[currentIndex] == "那個菸該不會是……") {
+        C();
+    }
+    if (sentences[currentIndex] == "大麻？") {
+        A();
+    }
+    if (sentences[currentIndex] == "沒錯（彈指），於是過了不久大家便像發了瘋似的互相搶奪美術品，甚至拿了拍賣品中的名刀互相砍殺了起來，在混亂之後，那兩名男人拿著所有的拍賣品人間蒸發了。") {
+        G();
+    }
+    if (sentences[currentIndex] == "奇怪了 這麼大的案件為什麼沒有新聞報導？") {
+        C();
+    }
+    if (sentences[currentIndex] == "大概是因為那些賓客都是政經名流吧。與其讓大家知道他們被兩個來歷不明的人耍了，不如把整件事壓下來，才能保住他們的社會地位。") {
+        H();
+    }
+    if (sentences[currentIndex] == "啊，原來如此，不過，這些陳年往事，還真能促進我們的食慾呢。（挑了挑嘴角）") {
+        E();
+    }
+    if (sentences[currentIndex] == "說到這個，差不多到飯點了吧？") {
+        F();
+    }
+    if (sentences[currentIndex] == "是的，餐點已經準備好了，請諸位跟我來。") {
+        I();
+    }
+    if(currentIndex==85){
+        K();;
+    }
+    if(currentIndex==86){
+        E();
+    }
+    if(currentIndex==87){
+        J();
+    }
+    if(currentIndex==88){
+        E();
+    }
+    if(currentIndex==89){
+        G();
+    }
+    if(currentIndex==90){
+        F();
+    }
+    if(currentIndex==91){
+        A();
+    }
+    if(currentIndex==92){
+        C();
+    }
+    if(currentIndex==93){
+        D();
+    }
+    if(currentIndex==94){
+        H();
+    }
+    if(currentIndex==95){
+        J();
+    }
+    if(currentIndex==98){
+        H();
+    }
+    if(currentIndex==99){
+        C();
+    }
+    if(currentIndex==100){
+        J();
+    }
+    if(currentIndex==102){
+        H();
+    }
+    if(currentIndex==104){
+        B();
+    }
+    if(currentIndex==105){
+        F();
+    }
+    if(currentIndex==106){
+        H();
+    }
+    if(currentIndex==107){
+        D();
+    }
+    if(currentIndex==108){
+        C();
+    }
+    if(currentIndex==109){
+        D();
+    }
+    if(currentIndex==110){
+        F();
+    }
+    if(currentIndex==111){
+        A();
+    }
+    if(currentIndex==112){
+        C();
+    }
+    if(currentIndex==113){
+        G();
+    }
+    if(currentIndex==114){
+        E();
+    }
+    if(currentIndex==115){
+        K();
+    }
+    if(currentIndex==116){
+        E();
+    }
+    if(currentIndex==117){
+        J();
+    }
+    if (
+      sentences[currentIndex - 1] == "事情要從那時說起------" &&
+      sentences[currentIndex] == "這是一個下著大雨的夜晚，一台白色的豐田在蜿蜒的山路上呼嘯而過。"
+    ) {
+      backgroundImageElement.style.transform = 'translateX(-100%)';
+      setTimeout(function () {
+        backgroundImageElement.src = '毛利車.jpg';
+        backgroundImageElement.style.transform = 'translateX(0%)';
+      }, 500);
+    }
+    if (
+      sentences[currentIndex - 1] == "啊這…我們今天來是要前往山上的別墅參加一場晚宴的。算了！總之你先上車再說吧！" &&
+      sentences[currentIndex] == "喔？邀請函？"
+    ) {
+      backgroundImageElement.style.transform = 'translateX(-100%)';
+      setTimeout(function () {
+        backgroundImageElement.src = '毛利車.jpg';
+        backgroundImageElement.style.transform = 'translateX(0%)';
+      }, 500);
+    }
+    if (
+      sentences[currentIndex - 1] == "這麼說起來，前面這棟別墅就是傳說中的黃昏別館吧？" &&
+      sentences[currentIndex] == "（四人推門進屋）"
+    ) {
+      backgroundImageElement.style.transform = 'translateX(-100%)';
+      setTimeout(function () {
+        backgroundImageElement.src = '前廳.jpg';
+        backgroundImageElement.style.transform = 'translateX(0%)';
+      }, 500);
+    }
+    if (
+      sentences[currentIndex - 1] == "哪裡哪裡，還請您多多指教才是" &&
+      sentences[currentIndex] == "歡迎大家大駕光臨 抱歉耽擱大家那麼久。"
+    ) {
+      backgroundImageElement.style.transform = 'translateX(-100%)';
+      setTimeout(function () {
+        backgroundImageElement.src = '前廳.jpg';
+        backgroundImageElement.style.transform = 'translateX(0%)';
+      }, 500);
+    }
+    if (
+      sentences[currentIndex - 1] == "是的，餐點已經準備好了，請諸位跟我來。" &&
+      sentences[currentIndex] == "這裡就是餐廳，各位請進。"
+    ) {
+      backgroundImageElement.style.transform = 'translateX(-100%)';
+      setTimeout(function () {
+        backgroundImageElement.src = '餐廳.jpg';
+        backgroundImageElement.style.transform = 'translateX(0%)';
+      }, 500);
+    }
+    if (
+      sentences[currentIndex - 1] == "那就這麼辦吧。" &&
+      sentences[currentIndex] == "大家都聽說了40年前的悲劇了吧？不過，這座別墅內其實還藏著當年那兩名小偷沒有帶走的巨額寶藏，而今天邀請諸位前來的目的，就是希望你們能幫我找出這個寶藏。"
+    ) {
+      backgroundImageElement.style.transform = 'translateX(-100%)';
+      setTimeout(function () {
+        backgroundImageElement.src = '餐廳.jpg';
+        backgroundImageElement.style.transform = 'translateX(0%)';
+      }, 500);
+    }
+    }
+    else {
+    alert("對話結束！");
+  }
+}
+</script>
+
+</body>
+
+</html>

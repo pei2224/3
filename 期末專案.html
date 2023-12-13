@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>期末專案</title>
+    <style>
+        .p {
+            display: flex;
+        }
+
+        .button {
+            display: block;
+            margin-bottom: 10px;
+            top: 0px;
+            cursor: pointer; 
+            ;
+        }
+
+        img {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="p">
+        <div>
+            <img src="黃昏別館.jpeg" width="771" height="588">
+        </div>
+        <div>
+            <button id="map" class="button">地圖</button>
+            <button id="thing" class="button">物證</button>
+            <button id="testimony" class="button">證詞</button>
+            <button id="task" class="button">任務</button>
+            <button id="introduction" class="button">人物介紹</button>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('introduction').addEventListener('click', function() {
+            window.location.href = '人物介紹.html';
+        });
+        document.getElementById("map").addEventListener("click",function(){
+            window.location.href="地圖2.html";
+        });
+    </script>
+</body>
+</html>

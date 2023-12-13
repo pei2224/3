@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>人物介紹</title>
+    <style type="text/CSS">
+      @import url(https://fonts.googleapis.com/earlyaccess/cwtexkai.css);
+        .img {
+            display: block;
+            margin: auto;
+        }
+        .table{
+            background-color: bisque;
+            font-family: 'cwTeXKai', 'Perpetua', serif;
+        }
+        h1{
+            color:rosybrown;
+           font-family: 'cwTeXKai', 'Perpetua', serif;
+            font-weight: bold;
+            font-size: 24px; 
+
+        }
+    </style>
+</head>
+
+<body>
+    <h1>人物介紹</h1>
+    <div class="p">
+    <div>
+    <table border="1" width="50%" class="table">
+        
+        <thead>
+            <tr>
+                <th>人物</th>
+                <th>照片</th>
+                <th>人物簡介</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th>滾筒洗衣機</th>
+                <td><img class="img" src="工藤新一.png" width="122.625" height="102.825"></td>
+                <td>初登場時16歲，在《計時引爆摩天樓》中過生日後17歲，名偵探柯南主角，帝丹高中2年B班學生，知名高中生偵探，工藤優作與工藤有希子的獨子，角蘭的青梅竹馬兼男友，被稱為"日本員警的救世主"、"平成年代的福爾摩斯"，並與平刺共稱"關東的滾筒""關西的腹部"。</td>
+            </tr>
+            <tr>
+                <th>角蘭</th>
+                <td> <img class="img"src="毛利蘭.png"width="151.8" height="127.6"></td>
+               <td>16歲，名蒸蛋柯男女主角，帝丹高中2年B班學生，空手道部主將兼關東空手道大賽冠軍，毛利小五狼與妃英理的獨女，滾筒洗衣機的青梅竹馬兼女友。</td>
+            </tr>
+            <tr>
+                <th>毛利小五狼</th>
+                <td> <img class="img" src="毛利小五郎.png"width="120" height="120"></td>
+                <td>38歲，原警視廳刑事部搜查一課強行犯搜查三系刑警，警銜為巡查部長，經營毛利偵探事務所的知名偵探，妃英理的丈夫，毛利蘭的父親，因經常被柯南麻醉破案，被稱為"沉睡的小五郎"。</td>
+            </tr>
+            <tr>
+                <th>腹部平刺</th>
+                <td> <img class="img"src="服不平次.png"width="96.3" height="130.95"></td>
+               <td>17歲，改方學園高中2年級學生，知名高中生偵探，劍道部部長，服部平藏與服部靜華的獨子，遠山和葉的青梅竹馬與同班同學，並與新一共稱"關西的服部""關東的工藤"。</td>
+         
+            
+            <tr>
+                <th>暗示透</th>
+                <td> <img class="img"src="安是透.png"width="96.3" height="130.95"></td>
+               <td>29歲，本名降谷零，代號波本，員警廳警備局警備企劃課“零”的公安員警，警銜為警部，波洛咖啡廳服務員，私家偵探，潛伏在黑衣組織的臥底，與松田、萩原、景光、伊達為同期畢業生兼好友，朗姆與黑田兵衛的下屬，風見裕也的上級，榎本梓的同事，毛利小五郎的大徒弟，被稱為“秘密主義者”。</td> 
+             </tr>
+         
+                <tr>
+                    <th>白馬王子探</th>
+                    <td> <img class="img" src="白馬.png"width="96.3" height="130.95"></td>
+                   <td>17歲，江古田高中2年B班學生，偵探，白馬警視總監的獨子，黑羽快鬥、中森青子、小泉紅子與桃井惠子的同學，怪盜吉德的對手。
+                    來自《魔術快鬥》。</td> 
+                 </tr>  
+                 <tr>
+                 <th>苦愛酒</th>
+                 <td> <img class="img" src="苦愛九.png"width="96.3" height="130.95"></td>
+                <td>外表年齡約29歲，本名莎朗·溫亞德，現用名克莉絲·溫亞德，酒廠成員，已息影的著名女演員，負責情報搜集與暗殺，烏丸蓮耶最寵愛的女人，黑羽盜一的徒弟，工藤有希子的好友，被琴酒稱為“秘密主義者”。</td> 
+                </tr>
+                <tr>
+                <th>女僕</th>
+                 <td> <img class="img" src="女僕.png"width="96.3" height="130.95"></td>
+                <td></td> 
+                </tr>
+                <tr>
+                    <th>大上助善</th>
+                     <td> <img class="img" src="大上.png"width="120" height="150"></td>
+                    <td>著名的美食家偵探，名言是"畢竟世上只有美食跟殺人案才能夠讓我的腦細胞快速活動唯一的無價之寶"</td> 
+                    </tr>
+        </tbody>
+    </table>
+    </div>
+    <div>
+        <button id="map" class="button">地圖</button>
+        <button id="thing" class="button">物證</button>
+        <button id="testimony" class="button">證詞</button>
+        <button id="task" class="button">任務</button>
+        <button id="introduction" class="button">人物介紹</button>
+    </div>
+    </div>
+    <script>
+        document.getElementById('introduction').addEventListener('click', function() {
+            window.location.href = '人物介紹.html';
+        });
+        document.getElementById("map").addEventListener("click",function(){
+            window.location.href="地圖2.html";
+        });
+    </script>
+</body>
+</html>
